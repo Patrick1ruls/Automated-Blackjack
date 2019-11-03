@@ -78,6 +78,21 @@ class Shoe(object):
         self.ideal_count[card.rank] -= 1
         
         return card
+    
+class Hand(object):
+    # Both player and dealer will have a playing hand
+    _value = 0
+    _aces = []
+    _soft_aces = 0
+    
+    def __init__(self, cards):
+        self.cards = cards
+        
+    def __str__(self):
+        hand = ""
+        for card in self.cards:
+            hand += "%s " % card
+        return hand
         
 
 # Test to make sure deck is generated properly
