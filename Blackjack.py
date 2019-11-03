@@ -93,6 +93,10 @@ class Hand(object):
         for card in self.cards:
             hand += "%s " % card
         return hand
+    
+    def add_card(self, card):
+        # Add a card to given hand
+        self.cards.append(card)
         
 
 # Test to make sure deck is generated properly
