@@ -95,13 +95,22 @@ class Hand(object):
         return hand
     
     @property
+    def aces(self):
+        # Returns any aces in hand
+        self._aces = []
+        for card in self.cards:
+            if card.name == "A":
+                self._aces.append(card)
+        return self._aces
+    
+    @property
     def soft_aces(self):
-        #Returns any soft aces (Aces valued at 11)
+        # Returns any soft aces (Aces valued at 11)
         self._soft_aces = 0
         for ace in self.aces:
             if ace.value == 11:
                 self._soft_aces += 1
-        return self._aces_soft
+        return self._soft_aces
     
     def add_card(self, card): #TODO: Fix GitHub bug #16
         # Add a card to given hand
