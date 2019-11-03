@@ -112,6 +112,22 @@ class Hand(object):
                 self._soft_aces += 1
         return self._soft_aces
     
+    @property
+    def value(self):
+        # Will return value of cards in hand
+        self._value = 0
+        for card in self.cards:
+            self._value += card.value
+            
+        if self._value > 21 and self.soft_aces > 0:
+            for ace in self.aces:
+                if ace.value == 11:
+                    self._value -= 10
+                    ace.value = 1
+                    if self._value <= 21:
+                        break
+        return self._value
+    
     def add_card(self, card): #TODO: Fix GitHub bug #16
         # Add a card to given hand
         self.cards.append(card)
