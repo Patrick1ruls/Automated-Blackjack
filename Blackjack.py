@@ -94,9 +94,20 @@ class Hand(object):
             hand += "%s " % card
         return hand
     
-    def add_card(self, card):
+    @property
+    def soft_aces(self):
+        #Returns any soft aces (Aces valued at 11)
+        self._soft_aces = 0
+        for ace in self.aces:
+            if ace.value == 11:
+                self._soft_aces += 1
+        return self._aces_soft
+    
+    def add_card(self, card): #TODO: Fix GitHub bug #16
         # Add a card to given hand
         self.cards.append(card)
+        
+    
         
 
 # Test to make sure deck is generated properly
