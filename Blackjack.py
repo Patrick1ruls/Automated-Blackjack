@@ -6,14 +6,14 @@
 
 class Card(object):
     # For playing cards containing both a name (rank and suit) and a value (1 - 11)
-    def __init__(self, name, value):
-        self.name = name
+    def __init__(self, rank, suit, value):
+        self.name = rank + " " + suit
         self.value = value
         
     def __str__(self): # Print card name directly
         return "%s" % (self.name)
     
-test_card = Card("K Diamonds", 10)
+test_card = Card("K", "Diamonds", 10)
 
 print("%s = %d" % (test_card, test_card.value))
 
