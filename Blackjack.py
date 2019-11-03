@@ -107,6 +107,13 @@ class Hand(object):
         # Add a card to given hand
         self.cards.append(card)
         
+    def soft(self):
+        # Figures out if hand is soft
+        if self.soft_aces > 0:
+            return True
+        else:
+            return False
+        
     
         
 
