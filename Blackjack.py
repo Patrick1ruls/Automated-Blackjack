@@ -154,6 +154,12 @@ class Player(object):
     def __init__(self, hand = None, dealer_hand = None):
         self.hands = [hand]
         self.dealer_hand = dealer_hand
+        
+    def play_hand(self, hand, shoe):
+        if hand.length() < 2:
+            if hand.cards[0].name == "A":
+                hand.cards[0].value = 11
+            self.hit(hand, shoe)
     
 class Dealer(object):     
     def __init__(self, hand = None):
