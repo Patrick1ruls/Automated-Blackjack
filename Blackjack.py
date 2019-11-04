@@ -149,7 +149,11 @@ class Hand(object):
     def length(self):
         # Determines how many cards are in hand
         return len(self.cards)
-        
+    
+class Player(object):
+    def __init__(self, hand=None, dealer_hand=None):
+        self.hands = [hand]
+        self.dealer_hand = dealer_hand
     
         
 
