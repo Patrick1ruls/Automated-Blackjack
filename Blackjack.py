@@ -139,6 +139,13 @@ class Hand(object):
         else:
             return False
         
+    def busted(self):
+        # Check's to see if hand's value goes over 21
+        if self.value > 21:
+            return True
+        else:
+            return False
+        
     
         
 
