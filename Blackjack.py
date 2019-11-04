@@ -146,6 +146,10 @@ class Hand(object):
         else:
             return False
         
+    def length(self):
+        # Determines how many cards are in hand
+        return len(self.cards)
+        
     
         
 
