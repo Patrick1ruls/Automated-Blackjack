@@ -151,11 +151,14 @@ class Hand(object):
         return len(self.cards)
     
 class Player(object):
-    def __init__(self, hand=None, dealer_hand=None):
+    def __init__(self, hand = None, dealer_hand = None):
         self.hands = [hand]
         self.dealer_hand = dealer_hand
     
-        
+class Dealer(object):     
+    def __init__(self, hand = None):
+        self.hand = hand
+    
 
 # Test to make sure deck is generated properly
 # Test to make sure deck is suffled properly
