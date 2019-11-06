@@ -161,6 +161,14 @@ class Player(object):
                 hand.cards[0].value = 11
             self.hit(hand, shoe)
             
+        """
+        Player will always hit as long as hand isn't busted 
+        and the players hand value is less than 16
+        """
+        while not hand.busted():
+            if hand.value() < 16:
+                self.hit(hand, shoe)
+            
     def set_hands(self, new_hand, new_dealer_hand):
         # Sets new player and dealer hand
         self.hands [new_hand]
