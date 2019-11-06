@@ -165,6 +165,12 @@ class Player(object):
         # Sets new player and dealer hand
         self.hands [new_hand]
         self.dealer_hand = [new_dealer_hand]
+        
+    def play(self, shoe):
+        # Depends on play_hand method
+        for hand in self.hands:
+            self.play_hand(hand, shoe)
+            
     
 class Dealer(object):     
     def __init__(self, hand = None):
