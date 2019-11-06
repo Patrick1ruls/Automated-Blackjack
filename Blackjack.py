@@ -160,6 +160,11 @@ class Player(object):
             if hand.cards[0].name == "A":
                 hand.cards[0].value = 11
             self.hit(hand, shoe)
+            
+    def set_hands(self, new_hand, new_dealer_hand):
+        # Sets new player and dealer hand
+        self.hands [new_hand]
+        self.dealer_hand = [new_dealer_hand]
     
 class Dealer(object):     
     def __init__(self, hand = None):
