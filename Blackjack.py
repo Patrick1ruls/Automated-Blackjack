@@ -171,6 +171,11 @@ class Player(object):
         for hand in self.hands:
             self.play_hand(hand, shoe)
             
+    def hit(self, hand, shoe):
+        # Player adds a card to hand from shoe
+        card = shoe.deal()
+        hand.add_card(card)
+            
     
 class Dealer(object):     
     def __init__(self, hand = None):
