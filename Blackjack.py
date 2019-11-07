@@ -208,6 +208,24 @@ class Game(object):
         self.shoe = Shoe(SHOE_SIZE)
         self.player = Player()
         self.dealer = Dealer()
+        
+    # Checks who won round
+    def won_or_lost(self, hand):
+        win = False
+        if hand.busted():
+            win = False
+        else:
+            if self.dealer.hand.busted():
+                win = True
+            elif self.dealer.hand.value < hand.value:
+                win = True
+            elif self.dealer.hand.value > hand.value:
+                win = False
+            elif self.dealer.hand.value == hand.value:
+                win = False
+        
+        return win
+                
     
 
 # Test to make sure deal functions properly
