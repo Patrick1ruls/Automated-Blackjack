@@ -190,6 +190,10 @@ class Dealer(object):
         
     def set_hand(self, new_hand):
         self.hand = new_hand
+        
+    def hit(self, shoe):
+        card = shoe.deal()
+        self.hand.add_card(card)
     
 
 # Test to make sure deck is generated properly
