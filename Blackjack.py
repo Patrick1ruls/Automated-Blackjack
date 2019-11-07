@@ -185,8 +185,9 @@ class Player(object):
             
     
 class Dealer(object):     
-    def __init__(self, hand = None):
+    def __init__(self, hand = None, player = None):
         self.hand = hand
+        self.player = player
         
     def set_hand(self, new_hand):
         self.hand = new_hand
@@ -194,6 +195,12 @@ class Dealer(object):
     def hit(self, shoe):
         card = shoe.deal()
         self.hand.add_card(card)
+        
+    def play(self, shoe, player):
+        # Dealer will continue to play until they beat player or bust
+        # Not certain on loggic here
+        while not self.hand.busted() and self.hand.value < player.hand.value:
+            self.hit(shoe)
     
 
 # Test to make sure deck is generated properly
