@@ -206,36 +206,15 @@ class Dealer(object):
 # Test to make sure deck is generated properly
 # Test to make sure deck is suffled properly
 # Test to make sure deal functions properly
-test_shoe = Shoe()
+shoe = Shoe()
+player = Player()
+dealer = Dealer()
 
-print(test_shoe)
+player_hand = Hand([shoe.deal(), shoe.deal()])
 
-for card in test_shoe.cards:
-    print(len(test_shoe.cards))
-    print(test_shoe.deal())
-    
-for card in test_shoe.cards:
-    print(len(test_shoe.cards))
-    print(test_shoe.deal())    
-    
-for card in test_shoe.cards:
-    print(len(test_shoe.cards))
-    print(test_shoe.deal())  
-    
-for card in test_shoe.cards:
-    print(len(test_shoe.cards))
-    print(test_shoe.deal())
-    
-print(len(test_shoe.cards))
-print(test_shoe.deal())
-
-print(len(test_shoe.cards))
-print(test_shoe.deal())
-
-print(len(test_shoe.cards))
-print(test_shoe.deal())
-
-print(len(test_shoe.cards))
+print("\n")
+print("player_hand: ")
+print(player_hand)
 
 
 print("Hello Blackjack!")
