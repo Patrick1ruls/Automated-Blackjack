@@ -9,7 +9,7 @@ from random import shuffle
 
 # Define card types through dictionary
 CARDS = {"A": 11, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10}
-SHOE_SIZE = 1
+SHOE_SIZE = 6
 
 
 """
@@ -201,20 +201,28 @@ class Dealer(object):
         # Not certain on loggic here
         while not self.hand.busted() and self.hand.value < player.hand.value:
             self.hit(shoe)
+            
+class Game(object):
+    # Manages the order of games and logging
+    def __init__(self):
+        self.shoe = Shoe(SHOE_SIZE)
+        self.player = Player()
+        self.dealer = Dealer()
     
 
-# Test to make sure deck is generated properly
-# Test to make sure deck is suffled properly
 # Test to make sure deal functions properly
 shoe = Shoe()
 player = Player()
 dealer = Dealer()
 
 player_hand = Hand([shoe.deal(), shoe.deal()])
+dealer_hand = Hand([shoe.deal()])
 
 print("\n")
 print("player_hand: ")
 print(player_hand)
+print("dealer_hand: ")
+print(dealer_hand)
 
 
 print("Hello Blackjack!")
