@@ -185,9 +185,9 @@ class Player(object):
             
     
 class Dealer(object):     
-    def __init__(self, hand = None, player = None):
+    def __init__(self, hand = None, player_final_hand = None):
         self.hand = hand
-        self.player = player
+        self.player_final_hand = player_final_hand
         
     def set_hand(self, new_hand):
         self.hand = new_hand
@@ -196,10 +196,14 @@ class Dealer(object):
         card = shoe.deal()
         self.hand.add_card(card)
         
-    def play(self, shoe, player):
+    def check_player_hand(self, player_final_hand):
+        self.player_final_hand = [player_final_hand]
+        return player_final_hand
+        
+    def play(self, shoe):
         # Dealer will continue to play until they beat player or bust
         # Not certain on loggic here
-        while not self.hand.busted() and self.hand.value < player.hand.value:
+        while not self.hand.busted() and self.hand.value < self.check_player_hand().value():
             self.hit(shoe)
             
 class Game(object):
