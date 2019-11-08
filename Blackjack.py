@@ -211,6 +211,8 @@ class Game(object):
         self.shoe = Shoe(SHOE_SIZE)
         self.player = Player()
         self.dealer = Dealer()
+        self.wins = 0
+        self.loses = 0
         
     # Checks who won round
     def won_or_lost(self, hand):
@@ -228,6 +230,22 @@ class Game(object):
                 win = False
         
         return win
+    
+    def play_round(self):
+        player_hand = Hand([shoe.deal(), shoe.deal()])
+        dealer_hand = Hand([shoe.deal()])
+        
+        self.player.set_hands(player_hand, dealer_hand)
+        self.dealer.set_hand([self.shoe.deal()])
+        
+        self.player.play(self.shoe)
+        self.dealer.play(self.shoe)
+        
+        for hand in self.player.hands:
+            if self.won_or_lost(hand):
+                wins += 1
+            else:
+                loses += 1
                 
     
 
