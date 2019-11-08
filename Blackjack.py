@@ -99,7 +99,7 @@ class Hand(object):
         # Returns any aces in hand
         self._aces = []
         for card in self.cards:
-            if card.name == "A":
+            if card.rank == "A":
                 self._aces.append(card)
         return self._aces
     
@@ -165,13 +165,13 @@ class Player(object):
         Player will always hit as long as hand isn't busted 
         and the players hand value is less than 16
         """
-        while not hand.busted() and hand.value() < 16:
+        while not hand.busted() and hand.value < 16:
             self.hit(hand, shoe)
             
     def set_hands(self, new_hand, new_dealer_hand):
         # Sets new player and dealer hand
-        self.hands [new_hand]
-        self.dealer_hand = [new_dealer_hand]
+        self.hands = [new_hand]
+        self.dealer_hand = new_dealer_hand
         
     def play(self, shoe):
         # Depends on play_hand method
@@ -185,9 +185,8 @@ class Player(object):
             
     
 class Dealer(object):     
-    def __init__(self, hand = None, player_final_hand = None):
+    def __init__(self, hand = None):
         self.hand = hand
-        self.player_final_hand = player_final_hand
         
     def set_hand(self, new_hand):
         self.hand = new_hand
@@ -203,7 +202,7 @@ class Dealer(object):
     def play(self, shoe):
         # Dealer will continue to play until they beat player or bust
         # Not certain on loggic here
-        while not self.hand.busted() and self.hand.value < self.check_player_hand().value():
+        while not self.hand.busted() and self.hand.value < self.check_player_hand().value:
             self.hit(shoe)
             
 class Game(object):
@@ -240,12 +239,24 @@ dealer = Dealer()
 player_hand = Hand([shoe.deal(), shoe.deal()])
 dealer_hand = Hand([shoe.deal()])
 
-print("\n")
-print("player_hand: ")
-print(player_hand)
-print("dealer_hand: ")
-print(dealer_hand)
+player.set_hands(player_hand, dealer_hand)
+dealer.set_hand(dealer_hand)
 
 
+
+print("\n\nPlayer starts with: " + str(player_hand))
+print("Dealer starts with: " + str(dealer_hand) + "\n")
+print("Player sees that dealer has a: " + str(player.dealer_hand))
+print("Which is worth: " + str(player.dealer_hand.value) + " points\n")
+print("Dealer sees players hand is worth: " + str(dealer.check_player_hand(player_hand).value) + " points")
+print("Player plays...\n")
+player.play(shoe)
+for hand in player.hands:
+    print("Player now has: " + str(hand))
+print("Did the player bust?: " + str(player_hand.busted()) + "\n")
+print("Dealer sees players hand is NOW worth: " + str(dealer.check_player_hand(player_hand).value) + " points")
+
+
+print()
 print("Hello Blackjack!")
 
