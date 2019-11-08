@@ -241,11 +241,14 @@ class Game(object):
         self.player.play(self.shoe)
         self.dealer.play(self.shoe)
         
+        # Keep track of wins/loses
         for hand in self.player.hands:
             if self.won_or_lost(hand):
-                wins += 1
+                self.wins += 1
             else:
-                loses += 1
+                self.loses += 1
+                
+        return self.wins, self.loses
                 
     
 
