@@ -202,6 +202,7 @@ class Game(object):
         self.dealer = Dealer()
         self.wins = 0
         self.loses = 0
+        self.winning_hands = []
         
     # Checks who won round
     def won_or_lost(self, hand):
@@ -239,6 +240,7 @@ class Game(object):
             if self.won_or_lost(hand) == 1:
                 self.wins += 1
                 print("Result: Player wins!\n")
+                self.winning_hands.append(player_hand.value)
             elif self.won_or_lost(hand) == -1:
                 self.loses += 1
                 print("Result: Dealer wins!\n")
@@ -250,8 +252,8 @@ class Game(object):
     def get_wins(self):
         return self.wins
     
-    def get_loses(self):
-        return self.loses
+    def get_winning_hands(self):
+        return self.winning_hands
     
 if __name__ == "__main__":
     wins = 0
@@ -260,13 +262,22 @@ if __name__ == "__main__":
     game = Game()
     number_of_games = 0
     
-    
     for games in range(5):
         game.play_round()
         number_of_games += 1
         
-        
     print("Number of games: " + str(number_of_games) + "\n")
     print("Player Success: " + str((game.get_wins()/number_of_games)*100) + "%")
+    print(game.get_winning_hands())
     
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
