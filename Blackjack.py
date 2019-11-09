@@ -1,27 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-@author: patrickvermillion
+@author: patrick vermillion
 """
 
 from random import shuffle
-
 
 # Define card types through dictionary
 CARDS = {"A": 11, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10}
 SHOE_SIZE = 6
 
-
-"""
-class Card(object):
-    # For playing cards containing both a name (rank and suit) and a value (1 - 11)
-    def __init__(self, rank, suit, value):
-        self.name = rank + " " + suit
-        self.value = value
-        
-    def __str__(self): # Print card name directly
-        return "%s" % (self.name)
-"""
 class Card(object):
     # For playing cards containing both a name (rank and suit) and a value (1 - 11)
     def __init__(self, rank, suit, value):
@@ -152,7 +140,7 @@ class Hand(object):
     
 class Player(object):
     def __init__(self, hand = None, dealer_hand = None):
-        self.hands = [hand]
+        self.hands = hand
         self.dealer_hand = dealer_hand
         
     def play_hand(self, hand, shoe):
@@ -201,8 +189,9 @@ class Dealer(object):
     def play(self, shoe, player_final_hand):
         # Dealer will continue to play until they beat player or bust
         # Not certain on logic here
-        while not self.hand.busted() and self.hand.value < player_final_hand:  
-            self.hit(shoe)
+        if player_final_hand <= 21:
+            while not (self.hand.busted()) and self.hand.value < player_final_hand:  
+                self.hit(shoe)
 
            
 class Game(object):
@@ -216,18 +205,18 @@ class Game(object):
         
     # Checks who won round
     def won_or_lost(self, hand):
-        win = False
+        win = 0
         if hand.busted():
-            win = False
+            win = -1
         else:
             if self.dealer.hand.busted():
-                win = True
+                win = 1
             elif self.dealer.hand.value < hand.value:
-                win = True
+                win = 1
             elif self.dealer.hand.value > hand.value:
-                win = False
+                win = -1
             elif self.dealer.hand.value == hand.value:
-                win = False
+                win = 0
         
         return win
     
@@ -241,13 +230,20 @@ class Game(object):
         self.player.play(self.shoe)
         self.dealer_check = self.dealer.check_player_hand(player_hand).value
         self.dealer.play(self.shoe, self.dealer_check)
+        
+        print("Player Hand: " + str(player_hand) + "= " + str(player_hand.value))
+        print("Dealer Hand: " + str(dealer_hand) + "= " + str(dealer_hand.value))
                 
         # Keep track of wins/loses
         for hand in self.player.hands:
-            if self.won_or_lost(hand):
+            if self.won_or_lost(hand) == 1:
                 self.wins += 1
-            else:
+                print("Result: Player wins!\n")
+            elif self.won_or_lost(hand) == -1:
                 self.loses += 1
+                print("Result: Dealer wins!\n")
+            else:
+                print("Result: It's a tie...\n")
                 
         return self.wins, self.loses
     
@@ -262,74 +258,15 @@ if __name__ == "__main__":
     loses = 0
     number_hands = 0
     game = Game()
+    number_of_games = 0
     
     
-    for games in range(1):
+    for games in range(5):
         game.play_round()
+        number_of_games += 1
         
-    print(game.get_wins())
-    print(game.get_loses())
-
         
-                
+    print("Number of games: " + str(number_of_games) + "\n")
+    print("Player Success: " + str((game.get_wins()/number_of_games)*100) + "%")
     
-
-# Test to make sure deal functions properly
-"""
-shoe = Shoe()
-player = Player()
-dealer = Dealer()
-wins = 0
-loses = 0
-
-player_hand = Hand([shoe.deal(), shoe.deal()])
-dealer_hand = Hand([shoe.deal()])
-
-player.set_hands(player_hand, dealer_hand)
-dealer.set_hand(dealer_hand)
-
-
-#################
-print("\n\nPlayer starts with: " + str(player_hand))
-print("Dealer starts with: " + str(dealer_hand) + "\n")
-print("Player sees that dealer has a: " + str(player.dealer_hand))
-print("Which is worth: " + str(player.dealer_hand.value) + " points\n")
-print("Dealer sees players hand is worth: " + str(dealer.check_player_hand(player_hand).value) + " points")
-print("Player plays...\n")
-##################
-
-
-player.play(shoe)
-
-
-##################
-for hand in player.hands:
-    print("Player now has: " + str(hand))
-print("Did the player bust?: " + str(player_hand.busted()) + "\n")
-##################
-
-
-dealer_check = dealer.check_player_hand(player_hand).value
-
-
-##################
-print("Dealer sees players hand is NOW worth: " + str(dealer_check) + " points")
-##################
-
-
-dealer.play(shoe, dealer_check)
-
-
-##################
-print("Dealer plays...\n")
-print("Dearler now has: " + str(dealer.hand))
-print("Dealer now has: " + str(dealer.hand.value))
-print("Did dealer bust?: " + str(dealer.hand.busted()))
-##################
-
-
-
-print()
-print("Hello Blackjack!")
-"""
 
