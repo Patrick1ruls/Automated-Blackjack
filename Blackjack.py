@@ -128,7 +128,7 @@ class Hand(object):
                         break
         return self._value
     
-    def add_card(self, card): #TODO: Fix GitHub bug #16
+    def add_card(self, card):
         # Add a card to given hand
         self.cards.append(card)
         
@@ -160,7 +160,6 @@ class Player(object):
             if hand.cards[0].name == "A":
                 hand.cards[0].value = 11
             self.hit(hand, shoe)
-            
         """
         Player will always hit as long as hand isn't busted 
         and the players hand value is less than 16
@@ -181,34 +180,35 @@ class Player(object):
     def hit(self, hand, shoe):
         # Player adds a card to hand from shoe
         card = shoe.deal()
-        hand.add_card(card)
-            
+        hand.add_card(card)   
     
 class Dealer(object):     
-    def __init__(self, hand = None):
+    def __init__(self, hand = None, player_hand = None):
         self.hand = hand
+        self.player_hand = player_hand
         
     def set_hand(self, new_hand):
         self.hand = new_hand
-        
+                
     def hit(self, shoe):
         card = shoe.deal()
         self.hand.add_card(card)
         
     def check_player_hand(self, player_final_hand):
-        self.player_final_hand = [player_final_hand]
-        return player_final_hand
+        self.player_hand = player_final_hand
+        return self.player_hand
         
-    def play(self, shoe):
+    def play(self, shoe, player_final_hand):
         # Dealer will continue to play until they beat player or bust
-        # Not certain on loggic here
-        while not self.hand.busted() and self.hand.value < self.check_player_hand().value:
+        # Not certain on logic here
+        while not self.hand.busted() and self.hand.value < player_final_hand:  
             self.hit(shoe)
-            
+
+           
 class Game(object):
     # Manages the order of games and logging
     def __init__(self):
-        self.shoe = Shoe(SHOE_SIZE)
+        self.shoe = Shoe()
         self.player = Player()
         self.dealer = Dealer()
         self.wins = 0
@@ -232,15 +232,16 @@ class Game(object):
         return win
     
     def play_round(self):
-        player_hand = Hand([shoe.deal(), shoe.deal()])
-        dealer_hand = Hand([shoe.deal()])
-        
+        player_hand = Hand([self.shoe.deal(), self.shoe.deal()])
+        dealer_hand = Hand([self.shoe.deal()])
+
         self.player.set_hands(player_hand, dealer_hand)
-        self.dealer.set_hand([self.shoe.deal()])
+        self.dealer.set_hand(dealer_hand)
         
         self.player.play(self.shoe)
-        self.dealer.play(self.shoe)
-        
+        self.dealer_check = self.dealer.check_player_hand(player_hand).value
+        self.dealer.play(self.shoe, self.dealer_check)
+                
         # Keep track of wins/loses
         for hand in self.player.hands:
             if self.won_or_lost(hand):
@@ -249,13 +250,37 @@ class Game(object):
                 self.loses += 1
                 
         return self.wins, self.loses
+    
+    def get_wins(self):
+        return self.wins
+    
+    def get_loses(self):
+        return self.loses
+    
+if __name__ == "__main__":
+    wins = 0
+    loses = 0
+    number_hands = 0
+    game = Game()
+    
+    
+    for games in range(1):
+        game.play_round()
+        
+    print(game.get_wins())
+    print(game.get_loses())
+
+        
                 
     
 
 # Test to make sure deal functions properly
+"""
 shoe = Shoe()
 player = Player()
 dealer = Dealer()
+wins = 0
+loses = 0
 
 player_hand = Hand([shoe.deal(), shoe.deal()])
 dealer_hand = Hand([shoe.deal()])
@@ -264,20 +289,47 @@ player.set_hands(player_hand, dealer_hand)
 dealer.set_hand(dealer_hand)
 
 
-
+#################
 print("\n\nPlayer starts with: " + str(player_hand))
 print("Dealer starts with: " + str(dealer_hand) + "\n")
 print("Player sees that dealer has a: " + str(player.dealer_hand))
 print("Which is worth: " + str(player.dealer_hand.value) + " points\n")
 print("Dealer sees players hand is worth: " + str(dealer.check_player_hand(player_hand).value) + " points")
 print("Player plays...\n")
+##################
+
+
 player.play(shoe)
+
+
+##################
 for hand in player.hands:
     print("Player now has: " + str(hand))
 print("Did the player bust?: " + str(player_hand.busted()) + "\n")
-print("Dealer sees players hand is NOW worth: " + str(dealer.check_player_hand(player_hand).value) + " points")
+##################
+
+
+dealer_check = dealer.check_player_hand(player_hand).value
+
+
+##################
+print("Dealer sees players hand is NOW worth: " + str(dealer_check) + " points")
+##################
+
+
+dealer.play(shoe, dealer_check)
+
+
+##################
+print("Dealer plays...\n")
+print("Dearler now has: " + str(dealer.hand))
+print("Dealer now has: " + str(dealer.hand.value))
+print("Did dealer bust?: " + str(dealer.hand.busted()))
+##################
+
 
 
 print()
 print("Hello Blackjack!")
+"""
 
