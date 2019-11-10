@@ -2,10 +2,10 @@
 
 **************************************************
 
-## Requirements: Have the most recent version of Python installed
+### 1) Requirements: Have the most recent version of Python installed
 
-## Download and unzip the Automated-Blackjack project from GitHub
+### 2) Download and unzip the Automated-Blackjack project from GitHub
 
-## In your terminal, navigate to the unzipped folder
+### 3) In your terminal, navigate to the unzipped folder
 
-## Enter: python Blackjack.py
+### 4) Enter: python Blackjack.py
