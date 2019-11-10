@@ -10,7 +10,7 @@ from random import shuffle
 Define card types through dictionary
 """
 CARDS = {"A": 11, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10}
-SHOE_SIZE = 1
+SHOE_SIZE = 6
 """
 Variable for triggering when the game is over (No more cards in shoe)
 """
@@ -380,9 +380,9 @@ if __name__ == "__main__":
     while not GAME_OVER:
         game.play_round()
         number_of_games += 1
-        
+
     print("Number of games: " + str(number_of_games) + "\n")
-    print("Player Success: " + str((game.get_wins()/number_of_games)*100) + "%\n")
+    print("Player Success: " + str(round((game.get_wins()/number_of_games)*100,2)) + "%\n")
     game.log_winning_hands(game.winning_hands)
     
     
