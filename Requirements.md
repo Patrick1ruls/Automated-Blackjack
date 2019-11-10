@@ -4,4 +4,8 @@
 
 ## Have the most recent version of Python installed
 
-Log Template/Example:
+## Download and unzip the Automated-Blackjack project from GitHub
+
+## In your terminal navigate to the unzipped folder
+
+## enter: python Blackjack.py
