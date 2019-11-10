@@ -8,7 +8,8 @@ from random import shuffle
 
 # Define card types through dictionary
 CARDS = {"A": 11, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10, "J": 10, "Q": 10, "K": 10}
-SHOE_SIZE = 6
+SHOE_SIZE = 1
+
 
 class Card(object):
     # For playing cards containing both a name (rank and suit) and a value (1 - 11)
@@ -19,6 +20,7 @@ class Card(object):
         
     def __str__(self): # Print card name directly
         return "%s %s" % (self.rank, self.suit)        
+    
     
 class Shoe(object):
     # Consists 6 playing decks
@@ -60,15 +62,14 @@ class Shoe(object):
     def deal(self):
         # Pulls next card off top of the shoe, if shoe is empty then program ends
         card = self.cards.pop()
-        
         # Check wether there are any copies of that card left
         assert self.ideal_count[card.rank] > 0, "Error, no more of that card"
         self.ideal_count[card.rank] -= 1
-        
         return card
     
     def length(self):
         return len(self.cards)
+    
     
 class Hand(object):
     # Both player and dealer will have a playing hand
@@ -141,6 +142,7 @@ class Hand(object):
         # Determines how many cards are in hand
         return len(self.cards)
     
+    
 class Player(object):
     def __init__(self, hand = None, dealer_hand = None):
         self.hands = hand
@@ -172,6 +174,7 @@ class Player(object):
         # Player adds a card to hand from shoe
         card = shoe.deal()
         hand.add_card(card)   
+    
     
 class Dealer(object):     
     def __init__(self, hand = None, player_hand = None):
@@ -221,7 +224,6 @@ class Game(object):
                 win = -1
             elif self.dealer.hand.value == hand.value:
                 win = 0
-        
         return win
     
     def play_round(self):
@@ -248,8 +250,7 @@ class Game(object):
                 self.loses += 1
                 print("Result: Dealer wins!\n")
             else:
-                print("Result: It's a tie...\n")
-                
+                print("Result: It's a tie...\n")  
         return self.wins, self.loses
     
     def get_wins(self):
@@ -283,7 +284,6 @@ class Game(object):
                 
         # Print them out
         print("Player Winning Hand => # of times achieved")
-        
         print("21 => " + str(self._21))
         print("20 => " + str(self._20))
         print("19 => " + str(self._19))
@@ -299,7 +299,8 @@ if __name__ == "__main__":
     game = Game()
     number_of_games = 0
     
-    for games in range(5):
+    while game.shoe.length() > 2:
+    #for games in range(5):
         game.play_round()
         number_of_games += 1
         
