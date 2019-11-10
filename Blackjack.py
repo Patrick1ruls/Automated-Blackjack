@@ -255,6 +255,40 @@ class Game(object):
     def get_winning_hands(self):
         return self.winning_hands
     
+    def log_winning_hands(self, winning_hands):
+        self._21 = 0
+        self._20 = 0
+        self._19 = 0
+        self._18 = 0
+        self._17 = 0
+        self._16 = 0
+        
+        # Add up winning values
+        for hand in winning_hands:
+            if hand == 21:
+                self._21 += 1
+            if hand == 20:
+                self._20 += 1
+            if hand == 19:
+                self._19 += 1
+            if hand == 18:
+                self._18 += 1
+            if hand == 17:
+                self._17 += 1
+            if hand == 16:
+                self._16 += 1
+                
+        # Print them out
+        print("Player Winning Hand => # of times achieved")
+        
+        print("21 => " + str(self._21))
+        print("20 => " + str(self._20))
+        print("19 => " + str(self._19))
+        print("18 => " + str(self._18))
+        print("17 => " + str(self._17))
+        print("16 => " + str(self._16))
+        
+    
 if __name__ == "__main__":
     wins = 0
     loses = 0
@@ -267,8 +301,8 @@ if __name__ == "__main__":
         number_of_games += 1
         
     print("Number of games: " + str(number_of_games) + "\n")
-    print("Player Success: " + str((game.get_wins()/number_of_games)*100) + "%")
-    print(game.get_winning_hands())
+    print("Player Success: " + str((game.get_wins()/number_of_games)*100) + "%\n")
+    game.log_winning_hands(game.winning_hands)
     
     
     
