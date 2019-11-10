@@ -6,6 +6,6 @@
 
 ## Download and unzip the Automated-Blackjack project from GitHub
 
-## In your terminal navigate to the unzipped folder
+## In your terminal, navigate to the unzipped folder
 
-## enter: python Blackjack.py
+## Enter: python Blackjack.py
