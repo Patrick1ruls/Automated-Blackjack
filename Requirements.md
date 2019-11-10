@@ -1,8 +1,8 @@
-# Requirements To Run Program
+# How To Run Program
 
 **************************************************
 
-## Have the most recent version of Python installed
+## Requirements: Have the most recent version of Python installed
 
 ## Download and unzip the Automated-Blackjack project from GitHub
 
