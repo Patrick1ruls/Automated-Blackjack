@@ -5,6 +5,7 @@
 """
 
 from random import shuffle
+from time import time
 
 """
 Define card types through dictionary
@@ -371,6 +372,10 @@ class Game(object):
         
     
 if __name__ == "__main__":
+    """
+    Record program start time
+    """
+    start_time = time()
     wins = 0
     loses = 0
     number_hands = 0
@@ -384,6 +389,12 @@ if __name__ == "__main__":
     print("Number of games: " + str(number_of_games) + "\n")
     print("Player Success: " + str(round((game.get_wins()/number_of_games)*100,2)) + "%\n")
     game.log_winning_hands(game.winning_hands)
+    """
+    Record program end time
+    """
+    end_time = time()
+    print("\nTime to execute: " + '{:.2e}'.format(end_time-start_time) + " seconds")
+    
     
     
     
