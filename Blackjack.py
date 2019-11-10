@@ -67,6 +67,9 @@ class Shoe(object):
         
         return card
     
+    def length(self):
+        return len(self.cards)
+    
 class Hand(object):
     # Both player and dealer will have a playing hand
     _value = 0
